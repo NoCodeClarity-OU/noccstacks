@@ -1,0 +1,88 @@
+project_setup:
+  description: >
+    Set up the project structure and coordinate the development process for {project_name}.
+    Create a detailed plan based on the project description: {project_description}
+  expected_output: >
+    A comprehensive project plan including milestones, task assignments, and integration points for {project_name}.
+  agent: project_manager
+
+frontend_development:
+  description: >
+    Create a complete frontend for {project_name} using HTML, Tailwind CSS, and JavaScript.
+    Implement all necessary pages and features as described in the project: {project_description}
+    Ensure the design is responsive, user-friendly, and integrates with Stacks.js for blockchain interactions.
+  expected_output: >
+    A fully functional frontend for {project_name}, including:
+    - Multiple HTML pages (e.g., home, about, services, contact or according to the project description)
+    - Tailwind CSS styling for responsive design
+    - JavaScript for interactivity and Stacks.js integration
+    - Clear structure and organization of files
+    - Implementation of all features described in the project requirements
+  agent: frontend_developer
+
+backend_development:
+  description: >
+    Develop the backend system for {project_name} using Supabase for database management and API creation.
+    Integrate with Stacks.js for any necessary blockchain interactions.
+    Ensure it meets the requirements described in: {project_description}
+  expected_output: >
+    A fully functional backend system for {project_name} with Supabase integration, including:
+    - API endpoints for frontend communication
+    - Database schemas and tables in Supabase
+    - Integration with Stacks.js for blockchain data handling
+  agent: backend_developer
+
+smart_contract_development:
+  description: >
+    Design and implement the smart contract(s) for {project_name} using Clarity language.
+    Ensure the contract is secure, efficient, and meets the project requirements: {project_description}
+  expected_output: >
+    Complete Clarity smart contract(s) for {project_name} ready for deployment on the Stacks blockchain, including:
+    - Well-documented contract functions and variables
+    - Implemented business logic as per project requirements
+    - Security considerations and optimizations
+  agent: smart_contract_developer
+
+contract_testing:
+  description: >
+    Write comprehensive tests for the {project_name} smart contract(s) using Clarinet and its testing framework.
+    Ensure all possible scenarios and edge cases are covered based on: {project_description}
+  expected_output: >
+    A complete test suite that thoroughly validates the {project_name} smart contract's functionality, including:
+    - Unit tests for individual contract functions
+    - Integration tests for contract interactions
+    - Edge case and security vulnerability tests
+  agent: test_engineer
+
+frontend_contract_integration:
+  description: >
+    Integrate the {project_name} smart contract(s) with the frontend using Stacks.js.
+    Implement necessary functions to interact with the contract from the UI, considering: {project_description}
+  expected_output: >
+    JavaScript code using Stacks.js that seamlessly connects the {project_name} frontend with the smart contract(s), including:
+    - Functions to call smart contract methods
+    - Event listeners for contract events
+    - UI updates based on contract interactions
+  agent: integrator
+
+backend_frontend_integration:
+  description: >
+    Integrate the Supabase backend system with the frontend for {project_name}, ensuring proper data flow and API usage.
+    Consider the specific requirements outlined in: {project_description}
+  expected_output: >
+    Fully integrated frontend and backend systems for {project_name} with proper API calls and data management, including:
+    - API endpoint consumption in the frontend
+    - Data synchronization between Supabase and the UI
+    - Error handling and data validation
+  agent: integrator
+
+final_integration_and_testing:
+  description: >
+    Perform final integration of all components for {project_name} and conduct thorough testing of the entire system.
+    Ensure all aspects of {project_description} are met and functioning correctly with Stacks blockchain, Supabase, and the frontend.
+  expected_output: >
+    A fully integrated and tested application for {project_name} with frontend, Supabase backend, and Clarity smart contracts working seamlessly together, including:
+    - End-to-end test scenarios
+    - Performance and security audits
+    - Documentation of the integrated system
+  agent: project_manager
