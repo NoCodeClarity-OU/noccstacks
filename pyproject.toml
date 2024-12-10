@@ -1,15 +1,16 @@
-[tool.poetry]
+[project]
 name = "noccstacks"
 version = "0.1.0"
 description = "noccStacks using crewAI"
-authors = ["Your Name <you@example.com>"]
+authors = [
+    { name = "Your Name", email = "you@example.com" },
+]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.63.6,<1.0.0",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.10,<=3.13"
-crewai = { extras = ["tools"], version = ">=0.63.6,<1.0.0" }
-
-
-[tool.poetry.scripts]
+[project.scripts]
 noccstacks = "noccstacks.main:run"
 run_crew = "noccstacks.main:run"
 train = "noccstacks.main:train"
@@ -17,5 +18,7 @@ replay = "noccstacks.main:replay"
 test = "noccstacks.main:test"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
