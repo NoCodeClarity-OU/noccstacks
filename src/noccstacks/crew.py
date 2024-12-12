@@ -5,8 +5,6 @@ from noccstacks.tools.custom_tool import (
 )
 
 class NoccstacksCrew:
-    """Noccstacks crew"""
-
     def __init__(self):
         self._inputs = {}
 
