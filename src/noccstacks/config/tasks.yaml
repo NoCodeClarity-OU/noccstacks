@@ -19,8 +19,7 @@ frontend_development:
     - Clear structure and organization of files
     - Implementation of all features described in the project requirements
   agent: frontend_developer
-  context:
-    - project_setup
+  context: [project_setup]
 
 backend_development:
   description: >
@@ -46,8 +45,7 @@ smart_contract_development:
     - Implemented business logic as per project requirements
     - Security considerations and optimizations
   agent: smart_contract_developer
-  context:
-    - project_setup
+  context: [project_setup]
 
 contract_testing:
   description: >
@@ -59,8 +57,7 @@ contract_testing:
     - Integration tests for contract interactions
     - Edge case and security vulnerability tests
   agent: test_engineer
-  context:
-    - smart_contract_development
+  context: [smart_contract_development]
 
 frontend_contract_integration:
   description: >
@@ -72,10 +69,8 @@ frontend_contract_integration:
     - Event listeners for contract events
     - UI updates based on contract interactions
   agent: integrator
-  context:
-    - frontend_development
-    - smart_contract_development
-    - contract_testing
+  context: [frontend_development, smart_contract_development, contract_testing]
+
 
 backend_frontend_integration:
   description: >
@@ -87,9 +82,7 @@ backend_frontend_integration:
     - Data synchronization between Supabase and the UI
     - Error handling and data validation
   agent: integrator
-  context:
-    - frontend_development
-    - backend_development
+  context: [frontend_development, backend_development]
 
 final_integration_and_testing:
   description: >
@@ -101,6 +94,4 @@ final_integration_and_testing:
     - Performance and security audits
     - Documentation of the integrated system
   agent: project_manager
-  context:
-    - frontend_contract_integration
-    - backend_frontend_integration
+  context: [frontend_contract_integration, backend_frontend_integration]
