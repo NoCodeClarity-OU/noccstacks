@@ -101,108 +101,73 @@ class NoccstacksCrew():
         config = self._replace_placeholders(self.tasks_config['project_setup'], self.inputs)
         return Task(
             config=config,
-            context=[{
-                "description": config['description'],
-                "expected_output": config['expected_output'],
-                "project_name": self.inputs.get('project_name', ''),
-                "project_description": self.inputs.get('project_description', '')
-            }]
+            context=[]
         )
 
     @task
     def frontend_development(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['frontend_development'], self.inputs)
-        setup_output = self.project_setup().output
         return Task(
             config=config,
-            context=self._format_context(setup_output, self.tasks_config['project_setup'])
+            context=[self.project_setup()]
         )
 
     @task
     def backend_development(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['backend_development'], self.inputs)
-        setup_output = self.project_setup().output
         return Task(
             config=config,
-            context=self._format_context(setup_output, self.tasks_config['project_setup'])
+            context=[self.project_setup()]
         )
 
     @task
     def smart_contract_development(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['smart_contract_development'], self.inputs)
-        setup_output = self.project_setup().output
         return Task(
             config=config,
-            context=self._format_context(setup_output, self.tasks_config['project_setup'])
+            context=[self.project_setup()]
         )
 
     @task
     def contract_testing(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['contract_testing'], self.inputs)
-        contract_output = self.smart_contract_development().output
         return Task(
             config=config,
-            context=self._format_context(contract_output, self.tasks_config['smart_contract_development'])
+            context=[self.smart_contract_development()]
         )
 
     @task
     def frontend_contract_integration(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['frontend_contract_integration'], self.inputs)
-        frontend_output = self.frontend_development().output
-        contract_output = self.smart_contract_development().output
-        
-        # Combine context from both frontend and contract tasks
-        context = []
-        if frontend_output:
-            context.extend(self._format_context(frontend_output, self.tasks_config['frontend_development']))
-        if contract_output:
-            context.extend(self._format_context(contract_output, self.tasks_config['smart_contract_development']))
-            
         return Task(
             config=config,
-            context=context
+            context=[
+                self.frontend_development(),
+                self.smart_contract_development(),
+                self.contract_testing()
+            ]
         )
 
     @task
     def backend_frontend_integration(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['backend_frontend_integration'], self.inputs)
-        frontend_output = self.frontend_development().output
-        backend_output = self.backend_development().output
-        
-        # Combine context from both frontend and backend tasks
-        context = []
-        if frontend_output:
-            context.extend(self._format_context(frontend_output, self.tasks_config['frontend_development']))
-        if backend_output:
-            context.extend(self._format_context(backend_output, self.tasks_config['backend_development']))
-            
         return Task(
             config=config,
-            context=context
+            context=[
+                self.frontend_development(),
+                self.backend_development()
+            ]
         )
 
     @task
     def final_integration_and_testing(self) -> Task:
         config = self._replace_placeholders(self.tasks_config['final_integration_and_testing'], self.inputs)
-        frontend_output = self.frontend_development().output
-        backend_output = self.backend_development().output
-        contract_output = self.smart_contract_development().output
-        test_output = self.contract_testing().output
-        
-        # Combine context from all previous tasks
-        context = []
-        if frontend_output:
-            context.extend(self._format_context(frontend_output, self.tasks_config['frontend_development']))
-        if backend_output:
-            context.extend(self._format_context(backend_output, self.tasks_config['backend_development']))
-        if contract_output:
-            context.extend(self._format_context(contract_output, self.tasks_config['smart_contract_development']))
-        if test_output:
-            context.extend(self._format_context(test_output, self.tasks_config['contract_testing']))
-            
         return Task(
             config=config,
-            context=context
+            context=[
+                self.frontend_contract_integration(),
+                self.backend_frontend_integration()
+            ]
         )
 
     @crew
