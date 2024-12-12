@@ -32,8 +32,7 @@ backend_development:
     - Database schemas and tables in Supabase
     - Integration with Stacks.js for blockchain data handling
   agent: backend_developer
-  context:
-    - project_setup
+  context: [project_setup]
 
 smart_contract_development:
   description: >
