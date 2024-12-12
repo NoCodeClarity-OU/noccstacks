@@ -11,7 +11,9 @@ def run():
         'project_description': input("Enter project description: ")
     }
     noccstacks_crew = NoccstacksCrew()
-    result = noccstacks_crew.crew().kickoff(inputs=inputs)
+    noccstacks_crew.set_inputs(inputs)
+    crew = noccstacks_crew.crew()
+    result = crew.kickoff()
     print("Project completed successfully!")
     print(result)
 
