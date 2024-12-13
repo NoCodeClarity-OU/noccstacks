@@ -8,12 +8,49 @@ from noccstacks.tools.custom_tool import (
 @CrewBase
 class NoccstacksCrew():
     """NoccStacks crew for building full-stack dapps"""
+    
+    def __init__(self):
+        self._inputs = {}
+
+    def set_inputs(self, inputs):
+        """Set the inputs for the crew"""
+        self._inputs = inputs
+        # Update the config with inputs
+        if hasattr(self, 'agents_config'):
+            for agent_name in self.agents_config:
+                self.agents_config[agent_name] = {
+                    k: v.format(**self._inputs) if isinstance(v, str) else v 
+                    for k, v in self.agents_config[agent_name].items()
+                }
+        if hasattr(self, 'tasks_config'):
+            for task_name in self.tasks_config:
+                self.tasks_config[task_name] = {
+                    k: v.format(**self._inputs) if isinstance(v, str) else v
+                    for k, v in self.tasks_config[task_name].items()
+                }
 
     @before_kickoff
     def before_kickoff_function(self, inputs):
         """Process inputs before crew kickoff"""
-        print(f"Starting project: {inputs.get('project_name', '')}")
-        return inputs
+        # Store inputs internally
+        self._inputs = inputs
+        print(f"Starting project: {self._inputs.get('project_name', '')}")
+        
+        # Format all configs with inputs
+        if hasattr(self, 'agents_config'):
+            for agent_name in self.agents_config:
+                self.agents_config[agent_name] = {
+                    k: v.format(**self._inputs) if isinstance(v, str) else v
+                    for k, v in self.agents_config[agent_name].items()
+                }
+        if hasattr(self, 'tasks_config'):
+            for task_name in self.tasks_config:
+                self.tasks_config[task_name] = {
+                    k: v.format(**self._inputs) if isinstance(v, str) else v
+                    for k, v in self.tasks_config[task_name].items()
+                }
+        
+        return self._inputs
 
     @agent
     def project_manager(self) -> Agent:
